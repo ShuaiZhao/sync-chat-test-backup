@@ -1,0 +1,13 @@
+# This is a configuration file for a simulation scenario code
+# The file provides configuration information about the network, and this information
+# can be used to generate a topology file.
+# Network Type: 1: mesh, 2: ring, 3:tree, etc.
+# NumberOfProxies = 3
+# UEsPerCluster = 3
+# NumberOfUEs = 9
+# NumberOfRouters = 10
+# RoutersPerCluster = 4
+# ControllerPrefix = C
+# ProxyPrefix = P
+# UEPrefix = U
+# AccountPrefix = A

@@ -1,0 +1,9 @@
+Time	Node	AppId	SeqNo	Type	DelayS	DelayUS	RetxCount	HopCount
+10.0057	leaf-1	1	0	LastDelay	0.0057408	5740.8	1	6
+10.0057	leaf-1	1	0	FullDelay	9.00574	9.00574e+06	3	6
+10.0066	leaf-1	1	1	LastDelay	0.006588	6587.99	1	6
+10.0066	leaf-1	1	1	FullDelay	0.006588	6587.99	1	6
+11.0029	leaf-2	1	0	LastDelay	0.0028704	2870.4	1	3
+11.0029	leaf-2	1	0	FullDelay	0.0028704	2870.4	1	3
+11.0057	leaf-3	1	0	LastDelay	0.0057408	5740.8	1	5
+11.0057	leaf-3	1	0	FullDelay	0.0057408	5740.8	1	5

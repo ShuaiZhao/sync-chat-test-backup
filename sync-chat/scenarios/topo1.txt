@@ -1,0 +1,115 @@
+# any empty lines and lines starting with '#' symbol is ignored
+# The file should contain exactly two sections: router and link,
+# each starting with the corresponding keyword
+
+# router section defines topology nodes and their relative positions
+# (e.g., to use in visualizer)
+
+router
+# each line in this section represents onerouter and should have the following data: 
+
+# nodeId	city	yPos	xPos
+C	NA	0	0
+P1	NA	0	0
+P2	NA	0	0
+P3	NA	0	0
+U1	NA	0	0
+U2	NA	0	0
+U3	NA	0	0
+U4	NA	0	0
+U5	NA	0	0
+U6	NA	0	0
+U7	NA	0	0
+U8	NA	0	0
+U9	NA	0	0
+cr-0	NA	0	0
+cr-1	NA	0	0
+cr-2	NA	0	0
+cr-3	NA	0	0
+cr-4	NA	0	0
+cr-5	NA	0	0
+cr-6	NA	0	0
+cr-7	NA	0	0
+cr-8	NA	0	0
+cr-9	NA	0	0
+gw1	NA	0	0
+gw2	NA	0	0
+gw3	NA	0	0
+lc0-r0	NA	0	0
+lc0-r1	NA	0	0
+lc0-r2	NA	0	0
+lc0-r3	NA	0	0
+lc1-r0	NA	0	0
+lc1-r1	NA	0	0
+lc1-r2	NA	0	0
+lc1-r3	NA	0	0
+lc2-r0	NA	0	0
+lc2-r1	NA	0	0
+lc2-r2	NA	0	0
+lc2-r3	NA	0	0
+
+
+link
+
+# link section defines point-to-point links between nodes and characteristics of these links: 
+# each line should be in the following format (only first two are required, the rest can be ommitted)
+# bandwidth: link bandwidth
+# metric: routing metric
+# delay: link delay
+# queue: MaxPackets for transmission queue on the link (both direction)
+# srcNode	dstNode		bandwidth	metric	delay	queue 
+cr-0	cr-1	10Mbps	1	10ms	20
+cr-0	cr-4	10Mbps	1	10ms	20
+cr-0	cr-5	10Mbps	1	10ms	20
+cr-0	cr-6	10Mbps	1	10ms	20
+cr-0	cr-7	10Mbps	1	10ms	20
+cr-0	cr-8	10Mbps	1	10ms	20
+cr-1	P1	10Mbps	1	5ms	20
+cr-1	cr-5	10Mbps	1	10ms	20
+cr-1	cr-6	10Mbps	1	10ms	20
+cr-1	cr-8	10Mbps	1	10ms	20
+cr-1	cr-9	10Mbps	1	10ms	20
+cr-2	P2	10Mbps	1	5ms	20
+cr-2	cr-3	10Mbps	1	10ms	20
+cr-2	cr-5	10Mbps	1	10ms	20
+cr-2	cr-6	10Mbps	1	10ms	20
+cr-2	cr-8	10Mbps	1	10ms	20
+cr-2	cr-9	10Mbps	1	10ms	20
+cr-3	P3	10Mbps	1	5ms	20
+cr-3	cr-5	10Mbps	1	10ms	20
+U9	lc2-r3	1Mbps	1	5ms	20
+U8	lc2-r0	1Mbps	1	5ms	20
+lc1-r3	U5	1Mbps	1	5ms	20
+lc1-r3	U6	1Mbps	1	5ms	20
+lc1-r3	lc1-r1	1Mbps	1	5ms	20
+lc1-r3	lc1-r0	1Mbps	1	5ms	20
+lc1-r3	gw2	1Mbps	1	5ms	20
+lc1-r2	U4	1Mbps	1	5ms	20
+lc1-r2	lc1-r1	1Mbps	1	5ms	20
+lc1-r2	lc1-r0	1Mbps	1	5ms	20
+U7	lc2-r0	1Mbps	1	5ms	20
+U1	lc0-r3	1Mbps	1	5ms	20
+U3	lc0-r1	1Mbps	1	5ms	20
+U2	lc0-r2	1Mbps	1	5ms	20
+cr-4	cr-9	10Mbps	1	10ms	20
+cr-4	cr-5	10Mbps	1	10ms	20
+cr-6	cr-7	10Mbps	1	10ms	20
+cr-6	cr-8	10Mbps	1	10ms	20
+cr-6	cr-9	10Mbps	1	10ms	20
+cr-7	cr-8	10Mbps	1	10ms	20
+cr-8	cr-9	10Mbps	1	10ms	20
+cr-8	C	10Mbps	1	5ms	20
+gw1	lc0-r3	1Mbps	1	5ms	20
+gw1	P1	1Mbps	1	5ms	20
+gw3	P3	1Mbps	1	5ms	20
+gw3	lc2-r3	1Mbps	1	5ms	20
+P2	gw2	1Mbps	1	5ms	20
+lc0-r2	lc0-r3	1Mbps	1	5ms	20
+lc0-r2	lc0-r0	1Mbps	1	5ms	20
+lc0-r3	lc0-r1	1Mbps	1	5ms	20
+lc0-r0	lc0-r1	1Mbps	1	5ms	20
+lc2-r0	lc2-r1	1Mbps	1	5ms	20
+lc2-r0	lc2-r2	1Mbps	1	5ms	20
+lc2-r1	lc2-r2	1Mbps	1	5ms	20
+lc2-r1	lc2-r3	1Mbps	1	5ms	20
+lc2-r2	lc2-r3	1Mbps	1	5ms	20

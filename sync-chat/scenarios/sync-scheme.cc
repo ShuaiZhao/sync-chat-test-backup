@@ -1,0 +1,183 @@
+/* -*- Mode: C++; c-file-style: "gnu"; indent-tabs-mode:nil; -*- */
+/*
+ * Copyright (c) 2012 University of California, Los Angeles
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation;
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * This is a example from ndn-simple-with-custom-app.cc
+ */
+
+#include "ns3/core-module.h"
+#include "ns3/network-module.h"
+#include "ns3/ndnSIM-module.h"
+#include "ns3/point-to-point-module.h"
+
+
+using namespace ns3;
+
+
+int main(int argc, char *argv[])
+{
+	// setting default parameters for PointToPoint links and channels
+	Config::SetDefault("ns3::PointToPointNetDevice::DataRate", StringValue("1Mbps"));
+	Config::SetDefault("ns3::PointToPointChannel::Delay", StringValue("10ms"));
+	Config::SetDefault("ns3::DropTailQueue::MaxPackets", StringValue("20"));
+
+	// Read optional command-line parameters (e.g., enable visualizaer with ./waf -- run=<> --visualize)
+	CommandLine cmd;
+	cmd.Parse(argc, argv);
+
+	// Creating User Equipement Nodes
+	NodeContainer UE;
+	UE.Create(3);
+	Names::Add("U1", UE.Get(0));
+	Names::Add("U2", UE.Get(1));
+	Names::Add("U3", UE.Get(2));
+
+	// Creating Service Proxy Nodes
+	NodeContainer ProxyNodes;
+	ProxyNodes.Create(2);
+	Names::Add("P1", ProxyNodes.Get(0));
+	Names::Add("P2", ProxyNodes.Get(1));
+	//Creating Service Controller Node
+	NodeContainer Controller;
+	Controller.Create(1);
+	Names::Add("C", Controller.Get(0));
+	// Creating ndn routers
+	NodeContainer routers;
+	routers.Create(5);
+
+	PointToPointHelper p2p;
+	p2p.Install(UE.Get(0), routers.Get(0));
+	p2p.Install(routers.Get(0), ProxyNodes.Get(0));
+	p2p.Install(UE.Get(1), routers.Get(1));
+	p2p.Install(routers.Get(1), ProxyNodes.Get(0));
+	p2p.Install(ProxyNodes.Get(0), routers.Get(2));
+	p2p.Install(routers.Get(2), Controller.Get(0));
+	p2p.Install(routers.Get(3), Controller.Get(0));
+	p2p.Install(ProxyNodes.Get(1), routers.Get(3));
+	p2p.Install(UE.Get(2), routers.Get(4));
+	p2p.Install(routers.Get(4), ProxyNodes.Get(1));
+
+	// Install NDN stack on all nodes
+	ndn::StackHelper ndnHelper;
+	ndnHelper.SetDefaultRoutes(true);
+	//ndnHelper.SetForwardingStrategy ("ns3::ndn::fw::BestRoute");
+	ndnHelper.InstallAll();
+
+
+	// Installing global routing interface on all nodes
+	/*ndn::GlobalRoutingHelper ndnGlobalRoutingHelper;
+	ndnGlobalRoutingHelper.InstallAll ();
+
+	// Add /prefix origins to ndn::GlobalRouter
+	ndnGlobalRoutingHelper.AddOrigins ("C", Controller.Get(0));
+	ndnGlobalRoutingHelper.AddOrigins ("U1", UE.Get(0));
+	ndnGlobalRoutingHelper.AddOrigins ("U2", UE.Get(1));
+	ndnGlobalRoutingHelper.AddOrigins ("U3", UE.Get(2));
+	ndnGlobalRoutingHelper.AddOrigins ("P1", ProxyNodes.Get(0));
+	ndnGlobalRoutingHelper.AddOrigins ("P2", ProxyNodes.Get(1));*/
+
+	// installing sync controller to Controller node
+	ndn::AppHelper syncControllerAppHelper("SyncController");
+	syncControllerAppHelper.SetPrefix("C");
+	ApplicationContainer syncController = syncControllerAppHelper.Install(Controller.Get(0));
+
+	// installing sync proxy to Proxy node
+	ndn::AppHelper syncProxy1AppHelper("SyncProxy");
+	syncProxy1AppHelper.SetPrefix("P1");
+	syncProxy1AppHelper.SetAttribute("ControllerID", StringValue("C"));
+	ApplicationContainer syncProxy1 = syncProxy1AppHelper.Install(ProxyNodes.Get(0));
+
+
+	ndn::AppHelper syncProxy2AppHelper("SyncProxy");
+	syncProxy2AppHelper.SetPrefix("P2");
+	syncProxy2AppHelper.SetAttribute("ControllerID", StringValue("C"));
+	ApplicationContainer syncProxy2 = syncProxy2AppHelper.Install(ProxyNodes.Get(1));
+
+	// Installing sync client to UE nodes
+	ndn::AppHelper syncClient1AppHelper("SyncClient");
+	syncClient1AppHelper.SetPrefix("U1/sync");
+	syncClient1AppHelper.SetAttribute("ProxyID", StringValue("P1"));
+	ApplicationContainer syncClient1 = syncClient1AppHelper.Install(UE.Get(0));
+
+	ndn::AppHelper syncClient2AppHelper("SyncClient");
+	syncClient2AppHelper.SetPrefix("U2/sync");
+	syncClient2AppHelper.SetAttribute("ProxyID", StringValue("P1"));
+	ApplicationContainer syncClient2 = syncClient2AppHelper.Install(UE.Get(1));
+
+	ndn::AppHelper syncClient3AppHelper("SyncClient");
+	syncClient3AppHelper.SetPrefix("U3/sync");
+	syncClient3AppHelper.SetAttribute("ProxyID", StringValue("P2"));
+	ApplicationContainer syncClient3 = syncClient3AppHelper.Install(UE.Get(2));
+
+	// Installing chat applications to UE nodes
+	ndn::AppHelper chat1AppHelper("syncChatApp");
+	chat1AppHelper.SetPrefix("U1");
+	chat1AppHelper.SetAttribute("AccountID", StringValue("Alice"));
+	chat1AppHelper.SetAttribute("Frequency", StringValue("2"));
+	chat1AppHelper.SetAttribute("PayloadSize", StringValue("1024"));
+	chat1AppHelper.SetAttribute("StartSeq", IntegerValue(0));
+	chat1AppHelper.SetAttribute("SyncClientID", StringValue("U1/sync"));
+	ApplicationContainer app1 = chat1AppHelper.Install(UE.Get(0));
+
+	ndn::AppHelper chat2AppHelper("syncChatApp");
+	chat2AppHelper.SetPrefix("U2");
+	chat2AppHelper.SetAttribute("AccountID", StringValue("Bob"));
+	chat2AppHelper.SetAttribute("Frequency", StringValue("2"));
+	chat2AppHelper.SetAttribute("PayloadSize", StringValue("1024"));
+	chat2AppHelper.SetAttribute("StartSeq", IntegerValue(0));
+	chat2AppHelper.SetAttribute("SyncClientID", StringValue("U2/sync"));
+	ApplicationContainer app2 = chat2AppHelper.Install(UE.Get(1));
+
+	ndn::AppHelper chat3AppHelper("syncChatApp");
+	chat3AppHelper.SetPrefix("U3");
+	chat3AppHelper.SetAttribute("AccountID", StringValue("Cathy"));
+	chat3AppHelper.SetAttribute("Frequency", StringValue("2"));
+	chat3AppHelper.SetAttribute("PayloadSize", StringValue("1024"));
+	chat3AppHelper.SetAttribute("StartSeq", IntegerValue(0));
+	chat3AppHelper.SetAttribute("SyncClientID", StringValue("U3/sync"));
+	ApplicationContainer app3 = chat3AppHelper.Install(UE.Get(2));
+
+
+
+	syncController.Start(Seconds(0.0));
+	syncProxy1.Start(Seconds(0.0));
+	syncProxy2.Start(Seconds(0.0));
+	syncClient1.Start(Seconds(0.0));
+	syncClient2.Start(Seconds(0.0));
+	syncClient3.Start(Seconds(0.0));
+	app1.Start(Seconds(1.0));
+	app2.Start(Seconds(1.0));
+	app3.Start(Seconds(2.0));
+
+
+	Simulator::Stop(Seconds(6.0));
+
+
+
+	Simulator::Run();
+	Simulator::Destroy();
+
+	return 0;
+
+
+
+
+
+
+	// Install ndn stack on all nodes;
+
+
+}

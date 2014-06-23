@@ -1,0 +1,213 @@
+# any empty lines and lines starting with '#' symbol is ignored
+# The file should contain exactly two sections: router and link,
+# each starting with the corresponding keyword
+
+# router section defines topology nodes and their relative positions
+# (e.g., to use in visualizer)
+
+router
+# each line in this section represents onerouter and should have the following data: 
+
+# nodeId	city	yPos	xPos
+C	NA	0	0
+P1	NA	0	0
+P2	NA	0	0
+P3	NA	0	0
+U1	NA	0	0
+U10	NA	0	0
+U11	NA	0	0
+U12	NA	0	0
+U13	NA	0	0
+U14	NA	0	0
+U15	NA	0	0
+U2	NA	0	0
+U3	NA	0	0
+U4	NA	0	0
+U5	NA	0	0
+U6	NA	0	0
+U7	NA	0	0
+U8	NA	0	0
+U9	NA	0	0
+cr-0	NA	0	0
+cr-1	NA	0	0
+cr-10	NA	0	0
+cr-11	NA	0	0
+cr-12	NA	0	0
+cr-13	NA	0	0
+cr-14	NA	0	0
+cr-15	NA	0	0
+cr-16	NA	0	0
+cr-17	NA	0	0
+cr-18	NA	0	0
+cr-19	NA	0	0
+cr-2	NA	0	0
+cr-3	NA	0	0
+cr-4	NA	0	0
+cr-5	NA	0	0
+cr-6	NA	0	0
+cr-7	NA	0	0
+cr-8	NA	0	0
+cr-9	NA	0	0
+gw1	NA	0	0
+gw2	NA	0	0
+gw3	NA	0	0
+lc0-r0	NA	0	0
+lc0-r1	NA	0	0
+lc0-r2	NA	0	0
+lc0-r3	NA	0	0
+lc0-r4	NA	0	0
+lc1-r0	NA	0	0
+lc1-r1	NA	0	0
+lc1-r2	NA	0	0
+lc1-r3	NA	0	0
+lc1-r4	NA	0	0
+lc2-r0	NA	0	0
+lc2-r1	NA	0	0
+lc2-r2	NA	0	0
+lc2-r3	NA	0	0
+lc2-r4	NA	0	0
+
+
+link
+
+# link section defines point-to-point links between nodes and characteristics of these links: 
+# each line should be in the following format (only first two are required, the rest can be ommitted)
+# bandwidth: link bandwidth
+# metric: routing metric
+# delay: link delay
+# queue: MaxPackets for transmission queue on the link (both direction)
+# srcNode	dstNode		bandwidth	metric	delay	queue 
+cr-0	P3	10000Mbps	1	5ms	10000
+cr-0	cr-2	10000Mbps	1	5ms	10000
+cr-0	cr-7	10000Mbps	1	5ms	10000
+cr-0	cr-8	10000Mbps	1	5ms	10000
+cr-0	cr-9	10000Mbps	1	5ms	10000
+cr-0	cr-19	10000Mbps	1	5ms	10000
+cr-0	cr-10	10000Mbps	1	5ms	10000
+cr-0	cr-11	10000Mbps	1	5ms	10000
+cr-0	cr-16	10000Mbps	1	5ms	10000
+cr-0	cr-14	10000Mbps	1	5ms	10000
+lc1-r4	lc1-r1	1000Mbps	1	5ms	10000
+lc1-r4	lc1-r2	1000Mbps	1	5ms	10000
+cr-2	cr-3	10000Mbps	1	5ms	10000
+cr-2	cr-4	10000Mbps	1	5ms	10000
+cr-2	cr-9	10000Mbps	1	5ms	10000
+cr-2	cr-19	10000Mbps	1	5ms	10000
+cr-2	cr-12	10000Mbps	1	5ms	10000
+cr-2	cr-13	10000Mbps	1	5ms	10000
+cr-2	cr-17	10000Mbps	1	5ms	10000
+cr-2	cr-15	10000Mbps	1	5ms	10000
+cr-3	cr-1	10000Mbps	1	5ms	10000
+cr-3	cr-4	10000Mbps	1	5ms	10000
+cr-3	cr-5	10000Mbps	1	5ms	10000
+cr-3	cr-8	10000Mbps	1	5ms	10000
+cr-3	cr-9	10000Mbps	1	5ms	10000
+cr-3	C	10000Mbps	1	5ms	10000
+cr-3	cr-18	10000Mbps	1	5ms	10000
+cr-3	cr-13	10000Mbps	1	5ms	10000
+cr-3	cr-10	10000Mbps	1	5ms	10000
+cr-3	cr-17	10000Mbps	1	5ms	10000
+cr-3	cr-14	10000Mbps	1	5ms	10000
+cr-3	cr-15	10000Mbps	1	5ms	10000
+lc1-r1	U9	1000Mbps	1	5ms	10000
+lc1-r1	lc1-r0	1000Mbps	1	5ms	10000
+lc1-r1	lc1-r3	1000Mbps	1	5ms	10000
+lc1-r1	lc1-r2	1000Mbps	1	5ms	10000
+lc1-r0	U10	1000Mbps	1	5ms	10000
+lc1-r0	lc1-r2	1000Mbps	1	5ms	10000
+lc1-r3	U8	1000Mbps	1	5ms	10000
+lc1-r3	lc1-r2	1000Mbps	1	5ms	10000
+lc1-r2	U7	1000Mbps	1	5ms	10000
+lc1-r2	U6	1000Mbps	1	5ms	10000
+lc1-r2	gw2	1000Mbps	1	5ms	10000
+U5	lc0-r2	1000Mbps	1	5ms	10000
+cr-9	cr-1	10000Mbps	1	5ms	10000
+cr-9	cr-5	10000Mbps	1	5ms	10000
+cr-9	cr-6	10000Mbps	1	5ms	10000
+cr-9	cr-7	10000Mbps	1	5ms	10000
+cr-9	cr-18	10000Mbps	1	5ms	10000
+cr-9	cr-19	10000Mbps	1	5ms	10000
+cr-9	cr-12	10000Mbps	1	5ms	10000
+cr-9	cr-17	10000Mbps	1	5ms	10000
+U1	lc0-r0	1000Mbps	1	5ms	10000
+U3	lc0-r2	1000Mbps	1	5ms	10000
+U2	lc0-r0	1000Mbps	1	5ms	10000
+U11	lc2-r0	1000Mbps	1	5ms	10000
+U13	lc2-r3	1000Mbps	1	5ms	10000
+U12	lc2-r3	1000Mbps	1	5ms	10000
+U15	lc2-r2	1000Mbps	1	5ms	10000
+U14	lc2-r0	1000Mbps	1	5ms	10000
+U4	lc0-r2	1000Mbps	1	5ms	10000
+cr-6	cr-7	10000Mbps	1	5ms	10000
+cr-6	cr-18	10000Mbps	1	5ms	10000
+cr-6	cr-19	10000Mbps	1	5ms	10000
+cr-6	cr-11	10000Mbps	1	5ms	10000
+cr-6	cr-14	10000Mbps	1	5ms	10000
+cr-7	cr-4	10000Mbps	1	5ms	10000
+cr-7	cr-8	10000Mbps	1	5ms	10000
+cr-7	cr-10	10000Mbps	1	5ms	10000
+cr-7	cr-11	10000Mbps	1	5ms	10000
+cr-7	cr-16	10000Mbps	1	5ms	10000
+cr-7	cr-17	10000Mbps	1	5ms	10000
+cr-7	cr-15	10000Mbps	1	5ms	10000
+cr-18	cr-4	10000Mbps	1	5ms	10000
+cr-18	cr-19	10000Mbps	1	5ms	10000
+cr-18	cr-11	10000Mbps	1	5ms	10000
+cr-18	cr-17	10000Mbps	1	5ms	10000
+cr-18	cr-15	10000Mbps	1	5ms	10000
+cr-8	cr-1	10000Mbps	1	5ms	10000
+cr-8	cr-12	10000Mbps	1	5ms	10000
+cr-8	cr-13	10000Mbps	1	5ms	10000
+cr-8	cr-10	10000Mbps	1	5ms	10000
+cr-8	cr-11	10000Mbps	1	5ms	10000
+cr-8	cr-15	10000Mbps	1	5ms	10000
+cr-19	cr-1	10000Mbps	1	5ms	10000
+cr-19	cr-4	10000Mbps	1	5ms	10000
+cr-19	cr-5	10000Mbps	1	5ms	10000
+cr-19	cr-13	10000Mbps	1	5ms	10000
+cr-19	cr-10	10000Mbps	1	5ms	10000
+cr-19	cr-17	10000Mbps	1	5ms	10000
+cr-19	cr-14	10000Mbps	1	5ms	10000
+gw1	lc0-r2	1000Mbps	1	5ms	10000
+gw1	P1	1000Mbps	1	5ms	10000
+gw3	lc2-r0	1000Mbps	1	5ms	10000
+gw3	P3	1000Mbps	1	5ms	10000
+gw2	P2	1000Mbps	1	5ms	10000
+cr-5	cr-4	10000Mbps	1	5ms	10000
+cr-5	cr-13	10000Mbps	1	5ms	10000
+cr-1	cr-4	10000Mbps	1	5ms	10000
+cr-1	P1	10000Mbps	1	5ms	10000
+cr-1	cr-12	10000Mbps	1	5ms	10000
+cr-1	cr-10	10000Mbps	1	5ms	10000
+cr-1	cr-11	10000Mbps	1	5ms	10000
+cr-1	cr-17	10000Mbps	1	5ms	10000
+lc0-r2	lc0-r0	1000Mbps	1	5ms	10000
+lc0-r2	lc0-r1	1000Mbps	1	5ms	10000
+lc0-r2	lc0-r3	1000Mbps	1	5ms	10000
+lc0-r3	lc0-r0	1000Mbps	1	5ms	10000
+lc0-r3	lc0-r4	1000Mbps	1	5ms	10000
+lc0-r0	lc0-r4	1000Mbps	1	5ms	10000
+lc0-r1	lc0-r4	1000Mbps	1	5ms	10000
+cr-12	cr-10	10000Mbps	1	5ms	10000
+cr-12	cr-11	10000Mbps	1	5ms	10000
+cr-12	cr-16	10000Mbps	1	5ms	10000
+cr-12	cr-14	10000Mbps	1	5ms	10000
+cr-13	cr-10	10000Mbps	1	5ms	10000
+cr-13	cr-11	10000Mbps	1	5ms	10000
+cr-13	cr-15	10000Mbps	1	5ms	10000
+cr-10	cr-16	10000Mbps	1	5ms	10000
+cr-10	cr-17	10000Mbps	1	5ms	10000
+cr-10	cr-15	10000Mbps	1	5ms	10000
+cr-11	cr-4	10000Mbps	1	5ms	10000
+cr-11	cr-16	10000Mbps	1	5ms	10000
+cr-16	cr-17	10000Mbps	1	5ms	10000
+P2	cr-15	10000Mbps	1	5ms	10000
+cr-4	cr-14	10000Mbps	1	5ms	10000
+lc2-r0	lc2-r1	1000Mbps	1	5ms	10000
+lc2-r0	lc2-r3	1000Mbps	1	5ms	10000
+lc2-r1	lc2-r2	1000Mbps	1	5ms	10000
+lc2-r1	lc2-r3	1000Mbps	1	5ms	10000
+lc2-r1	lc2-r4	1000Mbps	1	5ms	10000
+lc2-r2	lc2-r3	1000Mbps	1	5ms	10000
+lc2-r3	lc2-r4	1000Mbps	1	5ms	10000
+cr-17	cr-14	10000Mbps	1	5ms	10000
